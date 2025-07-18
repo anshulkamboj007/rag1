@@ -17,5 +17,5 @@ def split_by_chapters(cleaned_text:str)->str:
         doc=Document(page_content=content,
                      metadata={"chapter_title": title ,"chapter":i//2+1})
         documents.append(doc)
-
+    print('.....chunking.....done....')
     return documents
