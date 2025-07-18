@@ -5,4 +5,4 @@ rag1/
 __pycache__/
 *.py[cod]
 
-.env
+experiments/.env
