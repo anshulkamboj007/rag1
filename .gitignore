@@ -1,0 +1,6 @@
+# Ignore your custom venv folder
+rag1/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
