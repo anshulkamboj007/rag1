@@ -45,8 +45,10 @@ class VectorStoreManager:
         summarized_docs = []
         for doc in chapters:
             summary = summarize_func(doc.page_content)
+            print(f'summarising {doc}.....')
             summarized_docs.append(Document(
                 page_content=summary,
                 metadata=doc.metadata
             ))
+            print(f'completed sumarising {doc}.....')
         return self._save_vectorstore(summarized_docs, SUMMARY_STORE_PATH)
