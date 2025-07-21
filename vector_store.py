@@ -47,7 +47,7 @@ class VectorStoreManager:
         chapters = split_by_chapters(cleaned)
 
         summarized_docs = []
-
+        print(f'total chapters found to be summarised .... {len(chapters)}')
         for i, doc in enumerate(chapters):
             summary = summarize_func(doc.page_content)
             
