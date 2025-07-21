@@ -33,22 +33,37 @@ class VectorStoreManager:
         return self._save_vectorstore(chapters, VECTORSTORE_PATH)
 
     def get_summary_vectorstore(self, summarize_func) -> FAISS:
+        # Ensure folder exists before saving
+        os.makedirs(os.path.dirname(SUMMARY_STORE_PATH), exist_ok=True)
+
         if os.path.exists(SUMMARY_STORE_PATH):
             print("✅ Loading existing summary vectorstore...")
             return self._load_vectorstore(SUMMARY_STORE_PATH)
 
         print("⚙️ Generating summaries for vectorstore...")
+
         raw = load_pdf_text(PDF_FILE)
         cleaned = clean_text(raw)
         chapters = split_by_chapters(cleaned)
 
         summarized_docs = []
-        for doc in chapters:
+
+        for i, doc in enumerate(chapters):
             summary = summarize_func(doc.page_content)
-            print(f'summarising {doc}.....')
+            
+            if not summary.strip():
+                print(f"⚠️ Chapter {i+1} returned an empty summary. Skipping.")
+                continue
+
+            print(f"📝 Summarizing chapter {i+1}...")
             summarized_docs.append(Document(
                 page_content=summary,
                 metadata=doc.metadata
             ))
-            print(f'completed sumarising {doc}.....')
-        return self._save_vectorstore(summarized_docs, SUMMARY_STORE_PATH)
+            print(f"✅ Completed chapter {i+1}")
+
+        print(f"📁 Saving summary vectorstore to {SUMMARY_STORE_PATH} ...")
+        vs = self._save_vectorstore(summarized_docs, SUMMARY_STORE_PATH)
+        print("✅ Summary vectorstore saved successfully.")
+
+        return vs
