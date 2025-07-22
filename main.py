@@ -3,6 +3,7 @@
 from vectorstore.vector_manager import VectorStoreManager
 from llm_chain import summarize_func, get_llm
 from retriver import build_retrieval_qa
+from query_rewriter import rewrite_query
 
 # Step 1: Get vectorstores
 print ('Step 1: Get vectorstores :  ..started.....')
@@ -27,7 +28,8 @@ print ('Step 3: Build RetrievalQA chains  ..completed.....')
 # Step 4: Run a query
 print ('Step 4: Run a query  ..started.....')
 query = "who are the friends of harry ?"
-print("🔍 From Chapters:\n", chapter_chain.invoke(query))
+rewritten_query = rewrite_query(query)
+print("🔍 From Chapters:\n", chapter_chain.invoke(rewritten_query))
 
 print(f'----summariy of top chapter----- \n')
-print("\n📝 From Summaries:\n", summary_chain.invoke(query))
+print("\n📝 From Summaries:\n", summary_chain.invoke(rewritten_query))
