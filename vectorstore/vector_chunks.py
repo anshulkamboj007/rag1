@@ -1,4 +1,4 @@
-from data_chunking import chunk_chapter_text
+from preprocessing.data_chunking import chunk_chapter_text
 
 def chunk_documents(docs):
     chunked = []

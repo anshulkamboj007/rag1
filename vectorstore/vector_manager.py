@@ -1,7 +1,7 @@
 import os
-from data_ingestion import load_pdf_text
-from data_cleaning import clean_text
-from data_chunking import split_by_chapters
+from preprocessing.data_ingestion import load_pdf_text
+from preprocessing.data_cleaning import clean_text
+from preprocessing.data_chunking import split_by_chapters
 from variables import VECTORSTORE_PATH, SUMMARY_STORE_PATH, PDF_FILE
 from llm_chain import get_embedding_model
 
