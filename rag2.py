@@ -26,6 +26,6 @@ print ('Step 3: Build RetrievalQA chains  ..completed.....')
 
 # Step 4: Run a query
 print ('Step 4: Run a query  ..started.....')
-query = "What challenges did Harry face during the Triwizard Tournament?"
-print("🔍 From Chapters:\n", chapter_chain.run(query))
-print("\n📝 From Summaries:\n", summary_chain.run(query))
+query = "who are the friends of harry ?"
+print("🔍 From Chapters:\n", chapter_chain.invoke(query))
+print("\n📝 From Summaries:\n", summary_chain.invoke(query))
