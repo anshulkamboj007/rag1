@@ -1,6 +1,6 @@
 # rag2.py
 
-from vector_store import VectorStoreManager
+from vectorstore.vector_manager import VectorStoreManager
 from llm_chain import summarize_func, get_llm
 from retriver import build_retrieval_qa
 
