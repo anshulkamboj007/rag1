@@ -6,7 +6,7 @@ from langchain_ollama import OllamaEmbeddings
 from langchain_core.documents import Document
 from data_ingestion import load_pdf_text
 from data_cleaning import clean_text
-from data_chunking import split_by_chapters
+from data_chunking import split_by_chapters,chunk_chapter_text
 from variables import VECTORSTORE_PATH, SUMMARY_STORE_PATH,PDF_FILE
 from llm_chain import summarize_func,get_embedding_model
 
@@ -30,7 +30,14 @@ class VectorStoreManager:
         raw = load_pdf_text(PDF_FILE)
         cleaned = clean_text(raw)
         chapters = split_by_chapters(cleaned)
-        return self._save_vectorstore(chapters, VECTORSTORE_PATH)
+        chunked_doc=[]
+        for doc in chapters:
+            chunks=chunk_chapter_text(doc.page_content)
+            for chunk in chunks:
+                chunk.metadata=doc.metadata
+            chunked_doc.extend(chunks)
+        return self._save_vectorstore(chunked_doc,VECTORSTORE_PATH)
+
 
     def get_summary_vectorstore(self, summarize_func) -> FAISS:
         # Ensure folder exists before saving

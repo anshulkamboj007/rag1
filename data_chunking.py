@@ -1,5 +1,6 @@
 import re
 from langchain.docstore.document import Document
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 def split_by_chapters(cleaned_text:str)->str:
     """
@@ -19,3 +20,7 @@ def split_by_chapters(cleaned_text:str)->str:
         documents.append(doc)
     print('.....chunking.....done....')
     return documents
+
+def chunk_chapter_text(chapter_text:str)->list[Document]:
+    splitter=RecursiveCharacterTextSplitter(chunk_size=1000,chunk_overlap=200)
+    return splitter.create_documents([chapter_text])

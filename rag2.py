@@ -14,8 +14,8 @@ print ('Step 1: Get vectorstores :  ..summary_vs completed.....')
 
 # Step 2: Convert to retrievers
 print ('Step 2: Convert to retrievers  ..started.....')
-chapter_retriever = chapter_vs.as_retriever(search_type="similarity", search_kwargs={"k":5})
-summary_retriever = summary_vs.as_retriever(search_type="mmr", search_kwargs={"k":5})
+chapter_retriever = chapter_vs.as_retriever(search_type="similarity", search_kwargs={"k":2})
+summary_retriever = summary_vs.as_retriever(search_type="mmr", search_kwargs={"k":2})
 print ('Step 2: Convert to retrievers  ..completed.....')
 
 # Step 3: Build RetrievalQA chains
@@ -28,4 +28,6 @@ print ('Step 3: Build RetrievalQA chains  ..completed.....')
 print ('Step 4: Run a query  ..started.....')
 query = "who are the friends of harry ?"
 print("🔍 From Chapters:\n", chapter_chain.invoke(query))
+
+print(f'----summariy of top chapter----- \n')
 print("\n📝 From Summaries:\n", summary_chain.invoke(query))
